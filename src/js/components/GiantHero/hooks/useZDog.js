@@ -17,7 +17,7 @@ export default (ref) => {
       zoom: 5,
       dragRotate: true,      // stop rotation when dragging starts
       rotate: {
-          x: -0.2
+          x: -0
       },
       onDragStart: function() {
         isSpinning = false;
@@ -27,8 +27,17 @@ export default (ref) => {
     let cloudRotorA = new Zdog.Anchor({
         addTo: illo
     });
+    
+
+    var group = new Zdog.Group({
+        addTo: illo,
+        rotate: {
+            x: -0.3
+        }
+    });
 
     test(cloudRotorA);
+    rocket(group);
 
     // update & render
     // illo.updateRenderGraph();
@@ -37,8 +46,11 @@ export default (ref) => {
       // rotate
         if ( isSpinning ) {
             cloudRotorA.rotate.y -= 0.01;
-            // illo.rotate.z += 0.003;
         }
+
+        // group.rotate.x += 0.01;
+        // group.rotate.z += 0.01;
+        group.rotate.y -= 0.01;
 
         illo.updateRenderGraph();
         requestAnimationFrame( animate );
@@ -46,6 +58,237 @@ export default (ref) => {
     animate();
 
   }, []);
+}
+
+
+let rocket = (p) => {
+    console.log(TAU);
+
+    var group = new Zdog.Group({
+        addTo: p,
+        rotate: {
+            z:0.9,
+            x:0.4
+        },
+        translate: { z: 90 },
+        scale: 0.8
+    });
+
+    new Zdog.Box({
+        addTo: group,
+        width: 5,
+        height: 5,
+        depth: 3,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:-4,
+            z:-0.8
+        },
+        rotate: {
+            y:0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:-7,
+            z:-0.6
+        },
+        rotate: {
+            y:-0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:-10,
+            z:-0.8
+        },
+        rotate: {
+            y:0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:-13,
+            z:-0.6
+        },
+        rotate: {
+            y:-0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:-16,
+            z:-0.8
+        },
+        rotate: {
+            y:0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+    //positive
+
+    
+
+    new Zdog.Box({
+        translate:{
+            x:4,
+            z:-0.6
+        },
+        rotate: {
+            y:-0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:7,
+            z:-0.8
+        },
+        rotate: {
+            y:0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:10,
+            z:-0.6
+        },
+        rotate: {
+            y:-0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:13,
+            z:-0.8
+        },
+        rotate: {
+            y:0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
+
+    new Zdog.Box({
+        translate:{
+            x:16,
+            z:-0.6
+        },
+        rotate: {
+            y:-0.4
+        },
+        addTo: group,
+        width: 3,
+        height: 4,
+        depth: 0.5,
+        stroke: false,
+        color: '#C25', // default face color
+        leftFace: '#EA0',
+        rightFace: '#E62',
+        topFace: '#ED0',
+        bottomFace: '#636',
+    });
 }
 
 
@@ -167,7 +410,7 @@ let test = (p) => {
                     addTo: p,
                     path: cloudVectors,
                     closed: true,
-                    stroke: 0,
+                    stroke: 0.1,
                     fill: true,
                     color: 'rgba(255,255,255, 0.5)'
                 });
@@ -175,186 +418,5 @@ let test = (p) => {
 
         }
     }
-}
-
-
-let Circle = (parent) => {
-  let d = 80,
-    segments = 22,
-    increment = 360 / segments,
-    cx  = 0,
-    cz = 0,
-    cy = 0;
-
-    let cloudRotorA = new Zdog.Anchor({
-      addTo: parent
-    });
-
-  // for (let ydeg = 0; ydeg < 360; ydeg += increment) {
-  //   for (let deg = 0; deg < 360; deg += increment) {
-  //     let alpha = deg * Math.PI / 180,
-  //       yalpha = ydeg * Math.PI / 180,
-  //       x = cx + (d * Math.cos(alpha)),
-  //       z = cz + (d * Math.sin(alpha)),
-  //       y = cy + (d * Math.cos(yalpha));
-
-  //       shape.push({
-  //         x,z, y
-  //       });
-  //   }
-  let sort = {
-
-  };
-
-  for(let s = 0; s < Math.PI * 2; s += ((Math.PI * 2) / segments)){
-
-    let sego = 0;
-    let  shape = [];
-    for(var t = 0; t <= Math.PI; t+= (Math.PI/(segments / 2))){
-        sego++;
-        let x = d * Math.cos(s) * Math.sin(t);
-        let z = d * Math.sin(s) * Math.sin(t);
-        let y = d * Math.cos(t);
-
-        let isLand = simplex.noise3d(x / 80 ,y / 80 ,z / 80 ) > 0.4;
-        let isCloud = simplex.noise3d(x / 80 ,y / 80 ,z / 80 ) > 0.2;
-
-
-        let opts = {};
-        if(sego <= 2 || sego >= (segments / 2) ) {
-          // opts = {
-          //   color : '#ffffff'
-          // };
-          // isLand = false;
-          isCloud = false;
-
-
-        }
-
-
-        let modd = !isLand ? d : d + (Math.abs(simplex.noise(x / 180, y / 180 ,z / 180 )) * 15);
-
-        let modx = modd * Math.cos(s) * Math.sin(t);
-        let modz = modd * Math.sin(s) * Math.sin(t);
-        let mody = modd * Math.cos(t);
-
-        if(isCloud) {
-
-          let cloud = {
-            x : (d + 10) * Math.cos(s) * Math.sin(t),
-            z : (d + 10) * Math.sin(s) * Math.sin(t),
-            y : (d + 10) * Math.cos(t)
-          }
-
-          for (let ci = 0; ci < 40; ci++) {
-
-            cloud.x += (Math.random() - 0.5) * 5;
-            cloud.z += (Math.random() - 0.5) * 5;
-            cloud.y += (Math.random() - 0.5) * 5;
-
-            var bigCloudPuff = new Zdog.Shape({
-              addTo: cloudRotorA,
-              translate: cloud,
-              stroke: 5 + Math.random() * 5,
-              scale: 5 + Math.random() * 2,
-              color: "rgba(255,255,255,0.05)",
-            });
-          }
-
-        }
-
-        // let modx = x + Math.abs(isLand ? (simplex.noise(y / 180 ,z / 180 ) * 15) : 0);
-        // let modz = z + Math.abs(isLand ? (simplex.noise(x / 180 ,y / 180) * 15) : 0);
-        // let mody = y + Math.abs(isLand ? (simplex.noise(x / 180 ,z / 180) * 15) : 0);
-
-      if(!sort[y]) sort[y] = [];
-
-      sort[y].unshift({
-        x : modx ,z : modz, y: mody,
-        isLand,
-        ...opts
-      });
-    }
-
-  }
-
-  let rings = Object.values(sort);
-
-  // for (const ring of rings) {
-    // new Zdog.Shape({
-    //   addTo: parent,
-    //   path: ring,
-    //   closed: false,
-    //   stroke: 1,
-    //   color: '#636',
-    // });
-  // }
-
-  let saturation = 129 / 255 * 100;
-  let light = 194 / 255 * 100;
-
-  for (let index = 0; index < rings.length ; index++) {
-    const ring = rings[index],
-      nextring = rings[index+1];
-
-      if(!nextring) continue;
-
-      // console.log(ring);
-
-      for (let pi = 0; pi < segments; pi+=1) {
-        let next = pi >= segments? 0 :pi+1,
-
-          point1 = ring[pi],
-          point2 = ring[next],
-          point3 = nextring[next],
-          point4 = nextring[pi],
-          path = [point1, point2, point3, point4],
-          isLand = false;
-
-          for (const point of path) {
-           if(!isLand) isLand = point.isLand;
-          }
-
-          for (const point of path) {
-            // point.x += (simplex.noise(point.y / 180 ,point.z / 180 ) * 10);
-            // point.z += (simplex.noise(point.x / 180 ,point.y / 180) * 10);
-            // point.y += (simplex.noise3d(point.x / 180 ,point.z / 180) * 10);
-          }
-
-
-          let lowColor = 205,
-            highColor = 209,
-            lowLandColor = 92,
-            highLandColor = 119,
-            color = `hsla(${lowColor + Math.random() * (highColor - lowColor) << 0},100%,50%,1)`;
-
-
-
-
-          color = !isLand ? color : `hsla(${lowLandColor + Math.random() * (highLandColor - lowLandColor) << 0},100%,25%,1)`;
-
-          for (const point of path) {
-            if(point.color) color = point.color;
-          }
-
-          new Zdog.Shape({
-              addTo: parent,
-              path,
-              closed: true,
-              stroke: isLand? 1: 0,
-              color,
-              fill: true
-            });
-
-      }
-      // new Zdog.Shape({
-      //   addTo: parent,
-      //   path: ring,
-      //   closed: false,
-      //   stroke: 1,
-      //   color: '#636',
-      // });
-
-  }
 }
 
