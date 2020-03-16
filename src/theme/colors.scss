@@ -1,0 +1,17 @@
+$color-red: #C21C1D;    //deep red
+$color-red-light: lighten($color-red, 10%);
+$color-red-dark: darken($color-red, 10%);
+
+$color-white: #FFFFFF;   //white
+
+$color-grey: #BCC1B6;    //grey
+$color-grey-light: lighten($color-grey, 10%);
+$color-grey-dark: darken($color-grey, 10%);
+
+$color-dayblue: #2397DC;    //skyblue
+$color-dayblue-light: lighten($color-dayblue, 10%);
+$color-dayblue-dark: darken($color-dayblue, 10%);
+
+$color-nightblue: #09193B;     //deepblue
+$color-nightblue-light: lighten($color-nightblue, 10%);
+$color-nightblue-dark: darken($color-nightblue, 10%);
