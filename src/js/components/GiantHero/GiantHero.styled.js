@@ -5,6 +5,7 @@ export const GiantHero = styled.div`
 
   height: 100vh;
   background: $color-nightblue;
+  position: relative;
 
   &.variant-dark {
     background: $color-red-dark;
