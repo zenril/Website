@@ -7,57 +7,57 @@ let simplex = new Simplex(),
     surfaceFacade = {};
 
 export default (ref) => {
-  useEffect(() => {
-    let isSpinning = true;
-    ref.current.id = 'zdog-' + (Math.random()).toString(16).substr(2)
+    useEffect(() => {
+        let isSpinning = true;
+        ref.current.id = 'zdog-' + (Math.random()).toString(16).substr(2)
 
-    let illo = new Zdog.Illustration({
-      // set canvas with selector
-      element: `#${ref.current.id}`,
-      zoom: 5,
-      dragRotate: true,      // stop rotation when dragging starts
-      rotate: {
-          x: -0
-      },
-      onDragStart: function() {
-        isSpinning = false;
-      },
-    });
-
-    let cloudRotorA = new Zdog.Anchor({
-        addTo: illo
-    });
-    
-
-    var group = new Zdog.Group({
-        addTo: illo,
+        let illo = new Zdog.Illustration({
+        // set canvas with selector
+        element: `#${ref.current.id}`,
+        zoom: 5,
+        dragRotate: true,      // stop rotation when dragging starts
         rotate: {
             x: -0.3
+        },
+        onDragStart: function() {
+            isSpinning = false;
+        },
+        });
+
+        let cloudRotorA = new Zdog.Anchor({
+            addTo: illo
+        });
+
+
+        var group = new Zdog.Group({
+            addTo: illo,
+            rotate: {
+                x: -1.3
+            }
+        });
+
+        test(cloudRotorA);
+        rocket(group);
+
+        // update & render
+        // illo.updateRenderGraph();
+
+        function animate() {
+        // rotate
+            if ( isSpinning ) {
+                cloudRotorA.rotate.y -= 0.01;
+            }
+
+            // group.rotate.x += 0.01;
+            // group.rotate.z += 0.01;
+            group.rotate.y -= 0.01;
+
+            illo.updateRenderGraph();
+            requestAnimationFrame( animate );
         }
-    });
+        animate();
 
-    test(cloudRotorA);
-    rocket(group);
-
-    // update & render
-    // illo.updateRenderGraph();
-
-    function animate() {
-      // rotate
-        if ( isSpinning ) {
-            cloudRotorA.rotate.y -= 0.01;
-        }
-
-        // group.rotate.x += 0.01;
-        // group.rotate.z += 0.01;
-        group.rotate.y -= 0.01;
-
-        illo.updateRenderGraph();
-        requestAnimationFrame( animate );
-    }
-    animate();
-
-  }, []);
+    }, []);
 }
 
 
@@ -71,7 +71,7 @@ let rocket = (p) => {
             x:0.4
         },
         translate: { z: 90 },
-        scale: 0.8
+        scale: 0.3
     });
 
     new Zdog.Box({
@@ -188,7 +188,7 @@ let rocket = (p) => {
     });
     //positive
 
-    
+
 
     new Zdog.Box({
         translate:{
@@ -324,25 +324,38 @@ let test = (p) => {
 
   let segments = 12,
     i = ((Math.PI * 2) / segments) / 2,
-    distance = 50;
+    distance = 50,
+    lowColor = 205,
+    highColor = 209,
+    lowLandColor = 92,
+    highLandColor = 119,
+    iceLowLandColor = 76,
+    iceHighLandColor = 87;
 
     let rPos = {
         x : 0,
-        y : 0
+        y : -1
     };
 
-    for(let angle = 0; angle < Math.PI * 2; angle += i){
+    let cap1 = [];
+    let cap2 = [];
+
+    for(let angle = 0; angle < Math.PI * 2; angle += i) {
         rPos.y++;
-        for(let rotation = 0; rotation < Math.PI; rotation += i){
+
+        rPos.x = 0;
+        for(let rotation = 0; rotation < Math.PI; rotation += i) {
             rPos.x++
             let { getVectors, getVectorFromRotation } = createPolygon(rotation,angle,i),
                 center = getVectorFromRotation(),
                 isLand = false,
-                isCloud = false;
+                isCloud = false,
+                isCap = false,
+                isIce = false;
 
-
-
-
+            // if(rPos.y == 23 || rPos.y == 24 || rPos.y == 1) {
+            //     isIce = true;
+            // }
 
             let vectors = getVectors(({x,y,z}) => {
 
@@ -350,7 +363,7 @@ let test = (p) => {
                     isLand = noiseLocation > 0.3;
 
                 let dSmooth = 2,
-                    d = distance + Math.abs(isLand ? (simplex.noise(x/dSmooth,y/dSmooth,z/dSmooth) * 10) : 0);
+                    d = distance + Math.abs(isLand? (simplex.noise(x/dSmooth,y/dSmooth,z/dSmooth) * 10) : 0);
 
                 return {
                     x : d * x,
@@ -360,9 +373,47 @@ let test = (p) => {
                 };
             });
 
+            if(rPos.y == 0) {
+                isCap = true;
+                //vectors = vectors.filter((e,i) => i != 0);
+
+                // new Zdog.Hemisphere({
+                //     addTo: p,
+                //     diameter: 2,
+                //     translate: vectors[1],
+                //     // fill enabled by default
+                //     // disable stroke for crisp edge
+                //     stroke: false,
+                //     color: '#f0f',
+                //     backface: '#f0f',
+                // });
+
+                continue;
+            }
+            if(rPos.y == 12) {
+                isCap = true;
+                isCap = true;
+                cap2.push(vectors[0]);
+                cap2.push(vectors[1]);
+                cap2.unshift(vectors[3]);
+                cap2.unshift(vectors[2]);
+
+                continue;
+            }
+            // if(rPos.y == 23) {
+
+            //      continue;
+            // }
+            if(rPos.y == 24) {
+                isCap = true;
+                cap1.push(vectors[0]);
+                cap1.push(vectors[1]);
+                cap1.unshift(vectors[3]);
+                cap1.unshift(vectors[2]);
+                 continue;
+            }
 
             let cloudVectors = getVectors(({x,y,z}) => {
-
                 let noiseLocation = simplex.noise3d(x/1.2,z/1.2,y/1.2),
                     isCloud = noiseLocation > 0.7;
 
@@ -377,8 +428,6 @@ let test = (p) => {
                 };
             });
 
-
-
             for (const vector of vectors) {
                 if(!isLand) isLand = vector.isLand;
             }
@@ -387,20 +436,16 @@ let test = (p) => {
                 if(!isCloud) isCloud = vector.isCloud;
             }
 
-
-            let lowColor = 205,
-                highColor = 209,
-                lowLandColor = 92,
-                highLandColor = 119,
-                color = `hsla(${lowColor + Math.random() * (highColor - lowColor) << 0},100%,${isCloud ? 40 : 50}%,1)`;
+            let color = `hsla(${lowColor + Math.random() * (highColor - lowColor) << 0},100%,${isCloud ? 40 : 50}%,1)`;
 
             color = !isLand ? color : `hsla(${lowLandColor + Math.random() * (highLandColor - lowLandColor) << 0},100%,${isCloud ? 20 : 25}%,1)`;
+            color = !isIce ? color : `hsla(0,0,${iceLowLandColor + Math.random() * (iceHighLandColor - iceLowLandColor) << 0}%,1)`;
 
             new Zdog.Shape({
                 addTo: p,
                 path: vectors,
                 closed: true,
-                stroke: 0.5,
+                stroke: 0,
                 fill: true,
                 color
             });
@@ -410,13 +455,36 @@ let test = (p) => {
                     addTo: p,
                     path: cloudVectors,
                     closed: true,
-                    stroke: 0.1,
+                    stroke: 0.001,
                     fill: true,
                     color: 'rgba(255,255,255, 0.5)'
                 });
             };
 
+
+
         }
+    }
+    if(cap1.length) {
+        new Zdog.Shape({
+            addTo: p,
+            path: cap1,
+            closed: true,
+            stroke: 0,
+            fill: true,
+            color: `hsla(${lowLandColor + Math.random() * (highLandColor - lowLandColor) << 0},100%,25%,1)`
+        });
+    }
+
+    if(cap2.length) {
+        new Zdog.Shape({
+            addTo: p,
+            path: cap2,
+            closed: true,
+            stroke: 0,
+            fill: true,
+            color: `hsla(${lowLandColor + Math.random() * (highLandColor - lowLandColor) << 0},100%,25%,1)`
+        });
     }
 }
 

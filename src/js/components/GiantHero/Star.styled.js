@@ -4,23 +4,23 @@ export const Star = styled.div`
   @import '~@theme/colors.scss';
 
   &:nth-child(1n) {
-    animation: twinkle 6.161174503034002s linear 6.229735516452803s infinite;
+    animation: twinkle 6s linear 6s infinite;
     animation-delay:-6s;
   }
   &:nth-child(2n) {
-    animation: twinkle 9.161174503034002s linear 5.229735516452803s infinite;
+    animation: twinkle 9s linear 5s infinite;
     animation-delay:-5s;
   }
   &:nth-child(3n) {
-    animation: twinkle 4.161174503034002s linear 6.229735516452803s infinite;
+    animation: twinkle 4s linear 6s infinite;
     animation-delay:-6s;
   }
   &:nth-child(4n) {
-    animation: twinkle 6.161174503034002s linear 7.229735516452803s infinite;
+    animation: twinkle 6s linear 7s infinite;
     animation-delay:-7s;
   }
   &:nth-child(5n) {
-    animation: twinkle 4.161174503034002s linear 8.229735516452803s infinite;
+    animation: twinkle 4s linear 8s infinite;
     animation-delay:-8s;
   }
 
